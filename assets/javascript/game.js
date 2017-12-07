@@ -15,9 +15,13 @@ function pickWord() {
 //sets wordDisplay array equal the length of the current picked word, and assings a underscore (empty letter) to each index
 //takes current word as parameter (x)
 function resetWordDispaly(x) {
+	let blankWord = "";
 	for (let i = 0; i < x.length; i++) {
 		wordDisplay[i] = " _ ";
+		blankWord = blankWord + wordDisplay[i];
 	};
+	document.querySelector('#wordToGuess').innerHTML = blankWord;
+	letterUsed = [];
 }
 
 //check if the current pressed key value matches any character in the current word
@@ -34,11 +38,13 @@ function checkLetterMatch(y) {
 	if (foundInArray == 0) {
 		if (letterUsed.length == 0) {
 			letterUsed.push(y);
+			document.querySelector('#letterUsed').innerHTML = letterUsed;
 			loseCondition();
 		} else {
 			let x = checkIfUsedLetter(y);
 			if (x == false) {
 				letterUsed.push(y);
+				document.querySelector('#letterUsed').innerHTML = letterUsed;
 				loseCondition();
 			}
 		}
@@ -53,9 +59,12 @@ function winCondition() {
 	for (let i = 0; i < wordDisplay.length; i++) {
 		wordProgress = wordProgress + wordDisplay[i];
 	}
+	document.querySelector('#wordToGuess').innerHTML = wordProgress;
 	if (wordProgress === currentWord) {
 		wins++;
 		tries = 9;
+		document.querySelector('#wins').innerHTML = "Wins: " + wins;
+		document.querySelector('#tries').innerHTML = "Tries: " + tries;
 		pickWord();
 		resetWordDispaly(currentWord);
 	}
@@ -64,11 +73,14 @@ function winCondition() {
 //subtracts 1 from tries, and if tries = 0, then add 1 to losses, pick new word and reset word display
 function loseCondition() {
 	tries--;
+	document.querySelector('#tries').innerHTML = "Tries: " + tries;
 	if (tries === 0) {
 		losses++;
 		tries = 9;
+		document.querySelector('#losses').innerHTML = "Losses: " + losses;
+		document.querySelector('#tries').innerHTML = "Tries: " + tries;
 		pickWord();
-		resetWordDispaly();
+		resetWordDispaly(currentWord);
 	}
 }
 
@@ -77,16 +89,15 @@ function checkIfUsedLetter(z) {
 	for (let i = 0; i < letterUsed.length; i++) {
 		if (z == letterUsed[i]) {
 			return true;
-		} else if (i == undefined) {
-			return false;
-		} else {
-			return false;
-		}
+		} 
 	}
+	return false;
 }
 
 pickWord();
-resetWordDispaly(currentWord);
+document.addEventListener("DOMContentLoaded", function(event) {
+    resetWordDispaly(currentWord);
+  });
 window.addEventListener('keyup', function(event) {
 	if (event.keyCode >= 65 && event.keyCode <= 90) {
 		let keyPress = event.key.toLowerCase();
