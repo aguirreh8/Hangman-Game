@@ -1,4 +1,4 @@
-const wordBank = ["apple", "orange", "pear", "grape"]; //stores list of words to use in game
+const wordBank = ["apple", "orange", "pear", "grape", "pinnaple", "mango", "tangerine", "kiwi", "melon", "strawberry", "grapefruit", "banana", "cherry", "peach"]; //stores list of words to use in game
 let wins = 0; // number of wins
 let losses = 0; // number of losses
 let tries = 9; // number of tries
@@ -9,7 +9,7 @@ let letterUsed = [];
 //randomly select a word from wordBank by array index
 function pickWord() {
 	currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-	console.log("current word: " + currentWord);
+	//console.log("current word: " + currentWord);
 }
 
 //sets wordDisplay array equal the length of the current picked word, and assings a underscore (empty letter) to each index
@@ -66,6 +66,7 @@ function winCondition() {
 	}
 	document.querySelector('#wordToGuess').innerHTML = wordProgress;
 	if (wordProgress === currentWord) {
+		alert("You won!");
 		wins++;
 		tries = 9;
 		document.querySelector('#wins').innerHTML = "Wins: " + wins;
@@ -81,12 +82,16 @@ function winCondition() {
 //subtracts 1 from tries, and if tries = 0, then add 1 to losses, pick new word and reset word display
 function loseCondition() {
 	tries--;
+	let newImage = '<img src="assets/images/' + tries + '.png" />';
+	document.querySelector('#hangman').innerHTML = newImage;
 	document.querySelector('#tries').innerHTML = "Tries: " + tries;
 	if (tries === 0) {
+		alert("You lose... the word was: " + currentWord);
 		losses++;
 		tries = 9;
 		document.querySelector('#losses').innerHTML = "Losses: " + losses;
 		document.querySelector('#tries').innerHTML = "Tries: " + tries;
+		document.querySelector('#hangman').innerHTML = "";
 		pickWord();
 		resetWordDispaly(currentWord);
 	}
@@ -113,7 +118,7 @@ window.addEventListener('keyup', function(event) {
 		// console.log("Wins: " + wins);
 		// console.log("losses: " + losses);
 		// console.log("Tries: " + tries);
-		console.log("Word being display:" + wordDisplay);
+		//console.log("Word being display:" + wordDisplay);
 		// console.log("Letters used: " + letterUsed);
 	}
 })
