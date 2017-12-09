@@ -15,10 +15,11 @@ function pickWord() {
 //sets wordDisplay array equal the length of the current picked word, and assings a underscore (empty letter) to each index
 //takes current word as parameter (x)
 function resetWordDispaly(x) {
+	wordDisplay = [];
 	let blankWord = "";
 	for (let i = 0; i < x.length; i++) {
 		wordDisplay[i] = " _ ";
-		blankWord = blankWord + wordDisplay[i];
+		blankWord = blankWord + wordDisplay[i]; //" _ _ _ _ _ "
 	};
 	document.querySelector('#wordToGuess').innerHTML = blankWord;
 	letterUsed = [];
@@ -27,12 +28,16 @@ function resetWordDispaly(x) {
 //check if the current pressed key value matches any character in the current word
 //takes current key value as tring as a parameter (y)
 function checkLetterMatch(y) {
-	let foundInArray = 0; 
+	let foundInArray = 0;
+	let gameWon = false; 
 	for (let i = 0; i < currentWord.length; i++) {
 		if (y === currentWord.charAt(i)) {
 			wordDisplay[i] = y;
 			foundInArray++;
-			winCondition();
+			gameWon = winCondition();
+			if (gameWon == true) {
+				return;
+			} 
 		} 
 	}
 	if (foundInArray == 0) {
@@ -67,6 +72,9 @@ function winCondition() {
 		document.querySelector('#tries').innerHTML = "Tries: " + tries;
 		pickWord();
 		resetWordDispaly(currentWord);
+		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -102,11 +110,11 @@ window.addEventListener('keyup', function(event) {
 	if (event.keyCode >= 65 && event.keyCode <= 90) {
 		let keyPress = event.key.toLowerCase();
 		checkLetterMatch(keyPress);
-		console.log("Wins: " + wins);
-		console.log("losses: " + losses);
-		console.log("Tries: " + tries);
+		// console.log("Wins: " + wins);
+		// console.log("losses: " + losses);
+		// console.log("Tries: " + tries);
 		console.log("Word being display:" + wordDisplay);
-		console.log("Letters used: " + letterUsed);
+		// console.log("Letters used: " + letterUsed);
 	}
 })
 
