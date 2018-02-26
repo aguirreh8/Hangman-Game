@@ -3,18 +3,34 @@
 <head>
 	<title>Hangman Game!!</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
+	<link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </head>
 <body>
-	<h1>Hangman</h1>
-	<div>Guess the word before you run out of tries</div>
-	<div id="wins">Wins: 0</div>
-	<div id="losses">Losses: 0</div>
-	<div id="tries">Tries: 9</div>
+	<div class="game-header--background">
+		<div class='game-header--gradient'>
+			<h1>Hangman</h1>
+			<p class="game-description">Type a letter... any letter, and hope you're right to survive.</p>
+		</div>
+	</div>
+	<div class="game-container">
+		<div class="player-status--record">
+			<div class="player-status--counts">
+				<div id="wins">Wins: 0</div>
+				<div id="losses">Losses: 0</div>
+				<div id="tries">Tries: 9</div>
+			</div>
+			<div>Letters used:</div>
+			<div id="letterUsed"></div>
+		</div>
+		<div class="player-status--hangman">
+			<div id="hangman"></div>
+		</div>
+	</div>
 	<div id="wordToGuess"></div>
-	<div>Letters used:</div>
-	<div id="letterUsed"></div>
-	<div id="hangman"></div>
+	<footer class="game-footer--background">
+		<div class="game-footer--gradient"></div>
+	</footer>
 </body>
 </html>

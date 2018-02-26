@@ -9,7 +9,6 @@ let letterUsed = [];
 //randomly select a word from wordBank by array index
 function pickWord() {
 	currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-	//console.log("current word: " + currentWord);
 }
 
 //sets wordDisplay array equal the length of the current picked word, and assings a underscore (empty letter) to each index
@@ -108,24 +107,15 @@ function checkIfUsedLetter(z) {
 }
 
 pickWord();
+
 document.addEventListener("DOMContentLoaded", function(event) {
     resetWordDispaly(currentWord);
   });
+
+//listens to key pressed on keyboard
 window.addEventListener('keyup', function(event) {
 	if (event.keyCode >= 65 && event.keyCode <= 90) {
 		let keyPress = event.key.toLowerCase();
 		checkLetterMatch(keyPress);
-		// console.log("Wins: " + wins);
-		// console.log("losses: " + losses);
-		// console.log("Tries: " + tries);
-		//console.log("Word being display:" + wordDisplay);
-		// console.log("Letters used: " + letterUsed);
 	}
 })
-
-// pickWord();
-// console.log(currentWord);
-// resetWordDispaly(currentWord);
-// console.log(wordDisplay);
-// checkLetterMatch('');
-// console.log(wordDisplay);
